@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+
+require 'optparse'
+require 'madride'
+
+
+environment   = Madride::Environment.new Dir.pwd
+options       = {:Port => 3000}
+
+
+OptionParser.new("", 24, '  ') do |opts|
+  opts.banner = "Usage: madride [options] [PATH ...]"
+
+  opts.separator ""
+  opts.separator "Options:"
+
+  opts.on("-h", "--host HOST", "listen on HOST (default: 0.0.0.0)") do |host|
+    options[:Host] = host
+  end
+
+  opts.on("-p", "--port PORT", "use PORT (default: 3000)") do |port|
+    options[:Port] = port
+  end
+
+
+  if ARGV.empty?
+    puts opts.help
+    exit
+  end
+
+
+  begin
+    opts.order(ARGV) do |path|
+      environment.append_path path
+    end
+  rescue OptionParser::ParseError => e
+    opts.warn e.message
+    puts opts.help
+    exit
+  end
+end
+
+
+Madride::Server.new(options, environment).start
