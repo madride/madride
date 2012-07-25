@@ -1,6 +1,8 @@
 # stdlib
 require 'pathname'
 
+# 3rd-party
+require 'rack/test'
 
 # internal
 require_relative '../lib/madride'

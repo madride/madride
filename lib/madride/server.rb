@@ -3,7 +3,7 @@ require "rack"
 
 module Madride
   class Server < Rack::Server
-    def initialize(options, environment)
+    def initialize(environment, options = {})
       @app = self.class.app environment
       super options
     end

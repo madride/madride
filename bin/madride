@@ -42,4 +42,4 @@ OptionParser.new("", 24, '  ') do |opts|
 end
 
 
-Madride::Server.new(options, environment).start
+Madride::Server.new(environment, options).start
