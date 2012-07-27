@@ -35,19 +35,5 @@ module Madride
       get "/foobar.html"
       last_response.should_not be_ok
     end
-
-
-    it "should show list files when directory has no index" do
-      get "/music"
-      last_response.should be_ok
-      last_response.body.should match(/bands[.]html/)
-    end
-
-
-    it "should should fallback to index.html if directory requested" do
-      get "/"
-      last_response.should be_ok
-      last_response.body.chould match(/Madride Demo/)
-    end
   end
 end

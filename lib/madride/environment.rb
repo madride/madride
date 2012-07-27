@@ -1,4 +1,6 @@
 require "sprockets"
+
+
 require "madride/templates/slim"
 require "madride/context_patch"
 
