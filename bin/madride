@@ -43,7 +43,7 @@ OptionParser.new("", 24, '  ') do |opts|
   end
 
   opts.on("-d", "--data FILE", "read data from yaml FILE") do |file|
-    options[:data].update! YAML.load_file file
+    options[:data].merge! YAML.load_file file
   end
 
   if ARGV.empty?
