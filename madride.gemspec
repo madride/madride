@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "sprockets", "~> 2.4"
   gem.add_dependency "rack", "~> 1.0"
   gem.add_dependency "slim", "~> 1.2"
+  gem.add_dependency "sass", "~> 3.1"
 
   gem.add_development_dependency "rake", "~> 0.9"
   gem.add_development_dependency "rspec", "~> 2.11"
