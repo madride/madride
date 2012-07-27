@@ -1,34 +1,37 @@
-MADRIDe
+Madride
 =======
 
-Zero-configuration command-line HTTP server with cow super-powers... Basically
-it allows you to serve files from the directory where you call it. But in
-comparison to other solutions `madride` allows you to write htmls in slim, js in
-coffescript and so on... Consider you have following files:
+Zero-configuration command-line HTTP server with cow super-powers...
 
-    .
-    |- pages/
-    |   `- index.html.slim
-    |
-    `- assets/
-        |- app.js.coffee
-        `- app.css.sass
+It's main purpose is to provide environment for quick prototyping of
+pages with *slim* (or any other template engine - feel free to open
+feature request issue) without need to run full stack of big boys like
+*sinatra* or *rails*. All you need is to simply execute `madride` with
+paths to your assets and pages.
 
-You can run `madride pages assets` to start serving these files as:
+The most simple example is:
 
-    /index.html
-    /app.js
-    /app.css
+    madride .
 
-Similar to the Rails assets pipeline but for html too :))
+This will start a server on `0.0.0.0:3000` serving files from `.`
+directory. You can provide a dummy data (that will be available in your
+templates) with `--data path/to/data.yml` argument. See `example` dir.
 
 
-Future plans
+Installation
 ------------
 
-- Attachable plugins via `--with <plugin-name>` option, e.g. `--with bootstrap`
-  to allow you easily "attach" bootstrap assets.
-- Support for data sources. Prototyping is nice, but it's kinda hard without at
-  least mocked data sources. So I plan to add `--data <path_to_yaml_file>`
-  option that will allow to specify a file with data available within html
-  templates.
+    gem install madride
+
+
+Usage
+-----
+
+See `example` for details.
+
+
+License & Copyrights
+--------------------
+
+* Copyright (c) 2012 [Aleksey "ixti" Zapparov](https://github.com/ixti)
+* Released under the MIT license. See LICENSE for details.
