@@ -1,0 +1,2 @@
+gem "madride"
+gem "madride-with-bootstrap", "2.0.4"
