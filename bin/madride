@@ -6,6 +6,7 @@
 
 require 'optparse'
 require 'madride'
+require 'rack'
 
 #
 # Options container. Filled in with default values.
