@@ -8,6 +8,10 @@ module Madride
       super
 
       register_engine '.slim', SlimTemplate
+
+      Madride.paths.each do |path|
+        append_path path
+      end
     end
   end
 end
