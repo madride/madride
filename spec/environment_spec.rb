@@ -22,9 +22,9 @@ module Madride
 
     it "should accept locals data" do
       env = environment
-      env.data = YAML.load_file fixtures_path('data.yml').to_s
+      env.locals.merge! YAML.load_file fixtures_path('data.yml').to_s
 
-      asset = env["index.html"]
+      asset = env["music/bands.html"]
       asset.should_not be_nil
       asset.to_s.should match(%r{pennywise})
     end
