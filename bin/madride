@@ -12,7 +12,7 @@ require 'rack'
 # Options container. Filled in with default values.
 #
 
-options = { :host => '0.0.0.0', :port => 3000, :data => {}, :paths => [] }
+options = { :host => '0.0.0.0', :port => 3000, :data => {} }
 
 #
 # Parse options
@@ -41,7 +41,8 @@ OptionParser.new("", 24, '  ') do |opts|
   end
 
   opts.on("-d", "--data FILE", "read data from yaml FILE") do |file|
-    options[:data].merge! YAML.load_file file
+    data = YAML.load_file file
+    options[:data].merge! data if data.is_a? Hash
   end
 
   #
@@ -58,7 +59,7 @@ OptionParser.new("", 24, '  ') do |opts|
   #
 
   begin
-    opts.order(ARGV){ |path| options[:paths] << path }
+    opts.parse!
   rescue OptionParser::ParseError => e
     opts.warn e.message
     exit 1
@@ -68,7 +69,7 @@ OptionParser.new("", 24, '  ') do |opts|
   # We need at least one path
   #
 
-  if options[:paths].empty?
+  if ARGV.empty?
     opts.warn "No paths given. See `madride --help` for usage info."
     exit 1
   end
@@ -84,7 +85,7 @@ environment = Madride::Environment.new Dir.pwd
 # Fill in paths
 #
 
-options[:paths].each{ |path| environment.append_path path }
+ARGV.each{ |path| environment.append_path path }
 
 #
 # Start server
