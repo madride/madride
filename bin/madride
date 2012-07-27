@@ -1,13 +1,21 @@
 #!/usr/bin/env ruby
 
+#
+# Require libraries
+#
 
 require 'optparse'
 require 'madride'
 
+#
+# Options container. Filled in with default values.
+#
 
-environment   = Madride::Environment.new Dir.pwd
-options       = {:Port => 3000}
+options = { :host => '0.0.0.0', :port => 3000, :data => {} }
 
+#
+# Parse options
+#
 
 OptionParser.new("", 24, '  ') do |opts|
   opts.banner = "Usage: madride [options] [PATH ...]"
@@ -15,31 +23,57 @@ OptionParser.new("", 24, '  ') do |opts|
   opts.separator ""
   opts.separator "Options:"
 
-  opts.on("-a", "--host HOST", "listen on HOST (default: 0.0.0.0)") do |host|
-    options[:Host] = host
+  opts.on("-a", "--addr HOST", "listen on HOST (default: 0.0.0.0)") do |addr|
+    options[:host] = addr
   end
 
   opts.on("-p", "--port PORT", "use PORT (default: 3000)") do |port|
-    options[:Port] = port
+    options[:port] = port
   end
 
+  opts.on("-w", "--with PLUGIN", "include PLUGIN") do |plugin|
+    begin
+      require "madride-with-#{plugin}"
+    rescue LoadError
+      require plugin
+    rescue LoadError
+      puts "Plugin #{plugin} not found"
+    end
+  end
+
+  opts.on("-d", "--data FILE", "read data from yaml FILE") do |file|
+    options[:data].update! YAML.load_file file
+  end
 
   if ARGV.empty?
     puts opts.help
-    exit
+    exit 1
   end
+end.parse!
 
+#
+# Create new madride environment
+#
 
-  begin
-    opts.order(ARGV) do |path|
-      environment.append_path path
-    end
-  rescue OptionParser::ParseError => e
-    opts.warn e.message
-    puts opts.help
-    exit
-  end
+environment = Madride::Environment.new Dir.pwd
+
+#
+# Fill in paths
+#
+
+if ARGV.empty?
+  environment.append_path "."
+else
+  ARGV.each{ |path| environment.append_path path }
 end
 
+#
+# Start server
+#
 
-Madride::Server.new(environment, options).start
+Rack::Server.start(
+  :Host   => options[:host],
+  :Port   => options[:port],
+  :server => 'webrick',
+  :app    => environment
+)
