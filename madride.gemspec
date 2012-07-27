@@ -4,7 +4,7 @@ require File.expand_path('../lib/madride/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name          = "madride"
   gem.version       = Madride::VERSION
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/madride/madride"
   gem.authors       = ["Aleksey V Zapparov"]
   gem.email         = ["ixti@member.fsf.org"]
   gem.summary       = "madride-#{Madride::VERSION}"
