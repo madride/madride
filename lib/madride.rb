@@ -1,11 +1,8 @@
 require "madride/version"
+require "madride/environment"
 
 
 module Madride
-  autoload :Environment,  "madride/environment"
-  autoload :Server,       "madride/server"
-
-
   @paths = []
 
 
