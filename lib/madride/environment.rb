@@ -26,5 +26,11 @@ module Madride
     def locals
       @context_class.locals
     end
+
+
+    def call env
+      env['PATH_INFO'] += '.html' if File.extname(unescape(env['PATH_INFO'].to_s)).empty?
+      super
+    end
   end
 end
