@@ -1,4 +1,5 @@
 require "sprockets"
+require "tilt/haml"
 
 
 require "madride/templates/slim"
@@ -11,6 +12,7 @@ module Madride
       super
 
       register_engine '.slim', SlimTemplate
+      register_engine '.haml', Tilt::HamlTemplate
 
       Madride.paths.each do |path|
         append_path path
