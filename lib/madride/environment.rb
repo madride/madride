@@ -26,6 +26,11 @@ module Madride
     end
 
 
+    def layouts= path
+      @layouts = File.expand_path(path, @trail.root)
+    end
+
+
     def locals
       @context_class.locals
     end
