@@ -19,7 +19,7 @@ options = { :host => '0.0.0.0', :port => 3000, :data => {} }
 #
 
 OptionParser.new("", 24, '  ') do |opts|
-  opts.banner = "Usage: madride [options] [PATH ...]"
+  opts.banner = "Usage: madride [options] PATH [PATH ...]"
 
   opts.separator ""
   opts.separator "Options:"
