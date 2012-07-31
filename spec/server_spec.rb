@@ -49,5 +49,12 @@ module Madride
       last_response.should be_ok
       last_response.body.should match(%r{<title>\s*Music\s*</title>})
     end
+
+
+    it "should try serve /index.html for /" do
+      get "/"
+      last_response.should be_ok
+      last_response.body.should match(%r{<title>\s*Madride Demo\s*</title>})
+    end
   end
 end
