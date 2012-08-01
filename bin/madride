@@ -88,6 +88,12 @@ environment = Madride::Environment.new Dir.pwd
 ARGV.each{ |path| environment.append_path path }
 
 #
+# Propose locals data
+#
+
+environment.locals.merge! options[:data]
+
+#
 # Start server
 #
 
