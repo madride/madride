@@ -1,6 +1,11 @@
 Madride
 =======
 
+[![Build Status](https://secure.travis-ci.org/madride/madride.png)[travis-ci]
+[![Dependency Status](https://gemnasium.com/rack/rack.png)][gemnasium]
+[![Code Climate](https://codeclimate.com/badge.png)][code-climate]
+
+
 Zero-configuration command-line HTTP server with cow super-powers...
 
 It's main purpose is to provide environment for quick prototyping of
@@ -35,3 +40,8 @@ License & Copyrights
 
 * Copyright (c) 2012 [Aleksey "ixti" Zapparov](https://github.com/ixti)
 * Released under the MIT license. See LICENSE for details.
+
+
+[travis-ci]:    http://travis-ci.org/madride/madride
+[gemnasium]:    https://gemnasium.com/madride/madride
+[code-climate]: https://codeclimate.com/github/madride/madride
