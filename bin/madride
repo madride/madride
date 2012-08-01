@@ -46,15 +46,6 @@ OptionParser.new("", 24, '  ') do |opts|
   end
 
   #
-  # No arguments given - show usage help
-  #
-
-  if ARGV.empty?
-    puts opts.help
-    exit 1
-  end
-
-  #
   # Parse options
   #
 
@@ -62,15 +53,6 @@ OptionParser.new("", 24, '  ') do |opts|
     opts.parse!
   rescue OptionParser::ParseError => e
     opts.warn e.message
-    exit 1
-  end
-
-  #
-  # We need at least one path
-  #
-
-  if ARGV.empty?
-    opts.warn "No paths given. See `madride --help` for usage info."
     exit 1
   end
 end
@@ -85,7 +67,11 @@ environment = Madride::Environment.new Dir.pwd
 # Fill in paths
 #
 
-ARGV.each{ |path| environment.append_path path }
+if ARGV.empty?
+  environment.append_path '.'
+else
+  ARGV.each{ |path| environment.append_path path }
+end
 
 #
 # Propose locals data

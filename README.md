@@ -11,7 +11,7 @@ paths to your assets and pages.
 
 The most simple example is:
 
-    madride .
+    madride
 
 This will start a server on `0.0.0.0:3000` serving files from `.`
 directory. You can provide a dummy data (that will be available in your
