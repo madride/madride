@@ -1,7 +1,7 @@
 Madride
 =======
 
-[![Build Status](https://secure.travis-ci.org/madride/madride.png)[travis-ci]
+[![Build Status](https://secure.travis-ci.org/madride/madride.png)][travis-ci]
 [![Dependency Status](https://gemnasium.com/rack/rack.png)][gemnasium]
 [![Code Climate](https://codeclimate.com/badge.png)][code-climate]
 
