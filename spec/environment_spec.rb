@@ -39,5 +39,12 @@ module Madride
       environment.paths.should include "/foo"
       environment.paths.should include fixtures_path('bar').to_s
     end
+
+
+    it "should allow omit .html prefix extension" do
+      asset = environment["simple.html"]
+      asset.should_not be_nil
+      asset.to_s.should match(%r{<title>\s*Simple\s*</title>})
+    end
   end
 end
