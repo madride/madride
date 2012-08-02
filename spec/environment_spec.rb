@@ -1,8 +1,5 @@
 module Madride
   describe Environment do
-    include Rack::Test::Methods
-
-
     def environment
       environment = Environment.new fixtures_root.to_s
 
