@@ -50,31 +50,11 @@ module Madride
 
     it "should use default layout if layouts path provided" do
       env = environment
-      env.layouts = "layouts"
+      env.append_path "layouts"
 
-      asset = env["videos/index.html"]
+      asset = env["video/index.html"]
       asset.should_not be_nil
       asset.to_s.should match(%r{<title>\s*Default Layout\s*</title>})
-    end
-
-
-    it "should allow set per-file layout using +layout+ directive" do
-      env = environment
-      env.layouts = "layouts"
-
-      asset = env["videos/extended.html"]
-      asset.should_not be_nil
-      asset.to_s.should match(%r{<title>\s*Extended Layout\s*</title>})
-    end
-
-
-    it "should respect +disable_layout+ directive" do
-      env = environment
-      env.layouts = "layouts"
-
-      asset = env["videos/hardcore.html"]
-      asset.should_not be_nil
-      asset.to_s.should match(%r{<title>\s*No Layout\s*</title>})
     end
   end
 end
