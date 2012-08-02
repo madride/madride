@@ -32,5 +32,15 @@ module Madride
       env['PATH_INFO'] += '.html' if File.extname(unescape(env['PATH_INFO'].to_s)).empty?
       super
     end
+
+
+    private
+
+
+    def headers env, asset, length
+      super(env, asset, length).tap do |headers|
+        headers["Content-Type"] << ";charset=utf8" if "text/html" == asset.content_type
+      end
+    end
   end
 end
