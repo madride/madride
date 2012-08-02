@@ -56,5 +56,17 @@ module Madride
       last_response.should be_ok
       last_response.body.should match(%r{<title>\s*Madride Demo\s*</title>})
     end
+
+
+    it "should set charset=utf8 for html files" do
+      get "/"
+      last_response.header['Content-Type'].should match(%r{charset=utf8$})
+    end
+
+
+    it "should keep Content-Type untouched for anything but html" do
+      get "/app.js"
+      last_response.header['Content-Type'].should_not match(%r{charset=utf8$})
+    end
   end
 end
