@@ -3,13 +3,15 @@ require "tilt/haml"
 
 
 require "madride/templates/slim"
-require "madride/context_patch"
+require "madride/context"
 
 
 module Madride
   class Environment < Sprockets::Environment
     def initialize *args
       super
+
+      @context_class = Class.new(Context)
 
       # unregister .htm and register .html instead
       register_mime_type nil, '.htm'
@@ -21,8 +23,6 @@ module Madride
       Madride.paths.each do |path|
         append_path path
       end
-
-      @context_class.send(:include, ContextPatch)
     end
 
 
