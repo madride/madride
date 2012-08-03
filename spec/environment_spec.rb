@@ -44,7 +44,7 @@ module Madride
     it "should allow omit .html prefix extension" do
       asset = environment["simple.html"]
       asset.should_not be_nil
-      asset.to_s.should match(%r{<title>\s*Simple\s*</title>})
+      asset.to_s.should match(%r{<title>\s*Simple Page\s*</title>})
     end
   end
 end

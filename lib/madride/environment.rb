@@ -14,10 +14,15 @@ module Madride
       register_engine '.slim', SlimTemplate
       register_engine '.haml', Tilt::HamlTemplate
 
+      # text/html extension is .htm, so we need to reassign aliases map manually
+
+      @trail.alias_extension '.slim', '.html'
+      @trail.alias_extension '.haml', '.html'
+      @trail.alias_extension '.htm',  '.html'
+
       Madride.paths.each do |path|
         append_path path
       end
-
 
       @context_class.send(:include, ContextPatch)
     end
