@@ -51,6 +51,7 @@ module Madride
     it "should use default layout if layouts path provided" do
       env = environment
       env.append_path "layouts"
+      env.locals.merge! YAML.load_file fixtures_path('data.yml').to_s
 
       asset = env["video/index.html"]
       asset.should_not be_nil
