@@ -11,14 +11,12 @@ module Madride
     def initialize *args
       super
 
+      # unregister .htm and register .html instead
+      register_mime_type nil, '.htm'
+      register_mime_type 'text/html', '.html'
+
       register_engine '.slim', SlimTemplate
       register_engine '.haml', Tilt::HamlTemplate
-
-      # text/html extension is .htm, so we need to reassign aliases map manually
-
-      @trail.alias_extension '.slim', '.html'
-      @trail.alias_extension '.haml', '.html'
-      @trail.alias_extension '.htm',  '.html'
 
       Madride.paths.each do |path|
         append_path path
