@@ -8,7 +8,18 @@ module Madride
     end
 
 
-    def evaluate(path, options = {})
+    def locals
+      self.class.locals
+    end
+
+
+    def layout= path
+      depend_on_asset path
+      @layout = path
+    end
+
+
+    def evaluate(path, options = {}, &block)
       pathname   = resolve(path)
       attributes = environment.attributes_for(pathname)
       processors = options[:processors] || attributes.processors
@@ -27,8 +38,18 @@ module Madride
 
       processors.each do |processor|
         begin
-          template = processor.new(pathname.to_s) { result }
-          result = template.render(self, self.class.locals)
+          template  = processor.new(pathname.to_s) { result }
+          result    = template.render(self, locals){ options[:yield] }
+        rescue Exception => e
+          annotate_exception! e
+          raise
+        end
+      end
+
+      if @layout
+        begin
+          layout = self.class.new(environment, @layout, resolve(@layout))
+          result = layout.evaluate(@layout, :yield => result)
         rescue Exception => e
           annotate_exception! e
           raise

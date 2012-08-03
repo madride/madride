@@ -4,6 +4,7 @@ require "tilt/haml"
 
 require "madride/templates/slim"
 require "madride/context"
+require "madride/directive_processor"
 
 
 module Madride
@@ -19,6 +20,8 @@ module Madride
 
       register_engine '.slim', SlimTemplate
       register_engine '.haml', Tilt::HamlTemplate
+
+      register_preprocessor 'text/html', DirectiveProcessor
 
       Madride.paths.each do |path|
         append_path path
