@@ -20,21 +20,10 @@ module Madride
 
 
     def evaluate(path, options = {}, &block)
-      pathname   = resolve(path)
-      attributes = environment.attributes_for(pathname)
-      processors = options[:processors] || attributes.processors
-
-      if options[:data]
-        result = options[:data]
-      else
-        if environment.respond_to?(:default_external_encoding)
-          mime_type = environment.mime_types(pathname.extname)
-          encoding  = environment.encoding_for_mime_type(mime_type)
-          result    = Sprockets::Utils.read_unicode(pathname, encoding)
-        else
-          result = Sprockets::Utils.read_unicode(pathname)
-        end
-      end
+      pathname    = resolve(path)
+      attributes  = environment.attributes_for(pathname)
+      processors  = options[:processors] || attributes.processors
+      result      = options[:data] || read_data(pathname)
 
       processors.each do |processor|
         begin
@@ -54,6 +43,22 @@ module Madride
           annotate_exception! e
           raise
         end
+      end
+
+      result
+    end
+
+
+    private
+
+
+    def read_data pathname
+      if environment.respond_to?(:default_external_encoding)
+        mime_type = environment.mime_types(pathname.extname)
+        encoding  = environment.encoding_for_mime_type(mime_type)
+        result    = Sprockets::Utils.read_unicode(pathname, encoding)
+      else
+        result = Sprockets::Utils.read_unicode(pathname)
       end
 
       result
